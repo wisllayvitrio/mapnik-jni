@@ -21,10 +21,6 @@ public class Layer extends NativeObject {
 	
 	public native String getName();
 	public native void setName(String name);
-	public native String getTitle();
-	public native void setTitle(String title);
-	public native String getAbstract(); 
-	public native void setAbstract(String abs);
 	public native String getSrs();
 	public native void setSrs(String srs);
 	

@@ -62,64 +62,6 @@ JNIEXPORT void JNICALL Java_mapnik_Layer_setName
 
 /*
  * Class:     mapnik_Layer
- * Method:    getTitle
- * Signature: ()Ljava/lang/String;
- */
-JNIEXPORT jstring JNICALL Java_mapnik_Layer_getTitle
-(JNIEnv *env, jobject layerobj)
-{
-	PREAMBLE;
-	mapnik::layer* layer=LOAD_LAYER_POINTER(layerobj);
-	return env->NewStringUTF(layer->title().c_str());
-	TRAILER(0);
-}
-
-/*
- * Class:     mapnik_Layer
- * Method:    setTitle
- * Signature: (Ljava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_mapnik_Layer_setTitle
-(JNIEnv *env, jobject layerobj, jstring sj)
-{
-	PREAMBLE;
-	mapnik::layer* layer=LOAD_LAYER_POINTER(layerobj);
-	refjavastring s(env, sj);
-	layer->set_title(s.stringz);
-	TRAILER_VOID;
-}
-
-/*
- * Class:     mapnik_Layer
- * Method:    getAbstract
- * Signature: ()Ljava/lang/String;
- */
-JNIEXPORT jstring JNICALL Java_mapnik_Layer_getAbstract
-(JNIEnv *env, jobject layerobj)
-{
-	PREAMBLE;
-	mapnik::layer* layer=LOAD_LAYER_POINTER(layerobj);
-	return env->NewStringUTF(layer->abstract().c_str());
-	TRAILER(0);
-}
-
-/*
- * Class:     mapnik_Layer
- * Method:    setAbstract
- * Signature: (Ljava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_mapnik_Layer_setAbstract
-(JNIEnv *env, jobject layerobj, jstring sj)
-{
-	PREAMBLE;
-	mapnik::layer* layer=LOAD_LAYER_POINTER(layerobj);
-	refjavastring s(env, sj);
-	layer->set_abstract(s.stringz);
-	TRAILER_VOID;
-}
-
-/*
- * Class:     mapnik_Layer
  * Method:    getSrs
  * Signature: ()Ljava/lang/String;
  */

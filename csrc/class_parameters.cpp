@@ -27,6 +27,11 @@ public:
 	void operator()(const double& value) const {
 		env->CallVoidMethod(paramobject, METHOD_PARAMETERS_SET_DOUBLE, key, (jdouble)value);
 	}
+
+	void operator()(mapnik::value_null const& value) const {
+		// FIXME
+	}
+
 };
 
 /*
