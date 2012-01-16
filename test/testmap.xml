@@ -5,7 +5,7 @@
 		  <Filter>([leisure] = 'park' or [leisure] = 'playground' or [landuse] = 'recreation_ground' or [leisure] = 'nature_reserve' or [landuse] = 'forest') and [way_area] &gt;= 50000000</Filter>
 		  <MaxScaleDenominator>1500000</MaxScaleDenominator>
 		  <MinScaleDenominator>400000</MinScaleDenominator>
-		  <TextSymbolizer name="[name]" size="10" face-name="DejaVuSans" fill="#006f53" halo-radius="2" halo-fill="rgba(255,255,255,0.25)" wrap-width="25" minimum-distance="20" line-spacing="4"/>
+		  <TextSymbolizer size="10" face-name="DejaVuSans" fill="#006f53" halo-radius="2" halo-fill="rgba(255,255,255,0.25)" wrap-width="25" minimum-distance="20" line-spacing="4">[name]</TextSymbolizer>
 		</Rule>
 	</Style>
 </Map>
