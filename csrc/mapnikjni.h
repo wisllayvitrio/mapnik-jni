@@ -50,6 +50,13 @@ JNIEXPORT void JNICALL Java_mapnik_Parameters_setNativeDouble
 #ifdef __cplusplus
 extern "C" {
 #endif
+/* Inaccessible static: initialized */
+/* Inaccessible static: registered */
+/* Inaccessible static: loadedLibrary */
+/* Inaccessible static: librarySearchNames */
+/* Inaccessible static: librarySearchPath */
+/* Inaccessible static: initializationFailure */
+/* Inaccessible static: nativeAllocCounts */
 /*
  * Class:     mapnik_Mapnik
  * Method:    nativeInit
@@ -502,38 +509,6 @@ JNIEXPORT jstring JNICALL Java_mapnik_Layer_getName
  * Signature: (Ljava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_mapnik_Layer_setName
-  (JNIEnv *, jobject, jstring);
-
-/*
- * Class:     mapnik_Layer
- * Method:    getTitle
- * Signature: ()Ljava/lang/String;
- */
-JNIEXPORT jstring JNICALL Java_mapnik_Layer_getTitle
-  (JNIEnv *, jobject);
-
-/*
- * Class:     mapnik_Layer
- * Method:    setTitle
- * Signature: (Ljava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_mapnik_Layer_setTitle
-  (JNIEnv *, jobject, jstring);
-
-/*
- * Class:     mapnik_Layer
- * Method:    getAbstract
- * Signature: ()Ljava/lang/String;
- */
-JNIEXPORT jstring JNICALL Java_mapnik_Layer_getAbstract
-  (JNIEnv *, jobject);
-
-/*
- * Class:     mapnik_Layer
- * Method:    setAbstract
- * Signature: (Ljava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_mapnik_Layer_setAbstract
   (JNIEnv *, jobject, jstring);
 
 /*

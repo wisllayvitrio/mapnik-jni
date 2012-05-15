@@ -149,7 +149,7 @@ JNIEXPORT jdouble JNICALL Java_mapnik_Layer_getMinZoom
 {
 	PREAMBLE;
 	mapnik::layer* layer=LOAD_LAYER_POINTER(layerobj);
-	return layer->getMinZoom();
+	return layer->min_zoom();
 	TRAILER(0);
 }
 
@@ -163,7 +163,7 @@ JNIEXPORT void JNICALL Java_mapnik_Layer_setMinZoom
 {
 	PREAMBLE;
 	mapnik::layer* layer=LOAD_LAYER_POINTER(layerobj);
-	layer->setMinZoom(z);
+	layer->set_min_zoom(z);
 	TRAILER_VOID;
 }
 
@@ -177,7 +177,7 @@ JNIEXPORT jdouble JNICALL Java_mapnik_Layer_getMaxZoom
 {
 	PREAMBLE;
 	mapnik::layer* layer=LOAD_LAYER_POINTER(layerobj);
-	return layer->getMaxZoom();
+	return layer->max_zoom();
 	TRAILER(0);
 }
 
@@ -191,7 +191,7 @@ JNIEXPORT void JNICALL Java_mapnik_Layer_setMaxZoom
 {
 	PREAMBLE;
 	mapnik::layer* layer=LOAD_LAYER_POINTER(layerobj);
-	layer->setMaxZoom(z);
+	layer->set_max_zoom(z);
 	TRAILER_VOID;
 }
 
@@ -205,7 +205,7 @@ JNIEXPORT jboolean JNICALL Java_mapnik_Layer_isActive
 {
 	PREAMBLE;
 	mapnik::layer* layer=LOAD_LAYER_POINTER(layerobj);
-	return (jboolean)layer->isActive();
+	return (jboolean)layer->active();
 	TRAILER(false);
 }
 
@@ -219,7 +219,7 @@ JNIEXPORT void JNICALL Java_mapnik_Layer_setActive
 {
 	PREAMBLE;
 	mapnik::layer* layer=LOAD_LAYER_POINTER(layerobj);
-	layer->setActive((bool)b);
+	layer->set_active((bool)b);
 	TRAILER_VOID;
 }
 
@@ -234,7 +234,7 @@ JNIEXPORT jboolean JNICALL Java_mapnik_Layer_isQueryable
 {
 	PREAMBLE;
 	mapnik::layer* layer=LOAD_LAYER_POINTER(layerobj);
-	return (jboolean)layer->isQueryable();
+	return (jboolean)layer->queryable();
 	TRAILER(false);
 }
 
@@ -248,7 +248,7 @@ JNIEXPORT void JNICALL Java_mapnik_Layer_setQueryable
 {
 	PREAMBLE;
 	mapnik::layer* layer=LOAD_LAYER_POINTER(layerobj);
-	layer->setQueryable((bool)b);
+	layer->set_queryable((bool)b);
 	TRAILER_VOID;
 }
 
@@ -262,7 +262,7 @@ JNIEXPORT jboolean JNICALL Java_mapnik_Layer_isVisible
 {
 	PREAMBLE;
 	mapnik::layer* layer=LOAD_LAYER_POINTER(layerobj);
-	return layer->isVisible(scale);
+	return layer->visible(scale);
 	TRAILER(false);
 }
 

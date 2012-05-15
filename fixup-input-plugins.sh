@@ -8,6 +8,6 @@ do
 		mv $input $partial
 	fi
 
-	g++ -shared -o $input $(pwd)/$partial ../../libmapnik2.so
+	g++ -shared -o $input $(pwd)/$partial ../../libmapnik.so
 done
 
