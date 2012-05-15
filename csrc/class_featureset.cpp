@@ -124,8 +124,11 @@ JNIEXPORT jobject JNICALL Java_mapnik_FeatureSet_getPropertyNames
 	}
 
 	jobject ret=env->NewObject(CLASS_HASHSET, CTOR_HASHSET);
-	for (std::map<std::string,mapnik::value>::iterator iter=(*fp)->begin(); iter!=(*fp)->end(); iter++) {
-		std::string const& name(iter->first);
+	mapnik::feature_impl::iterator itr = (*fp)->begin();
+	mapnik::feature_impl::iterator end = (*fp)->end();
+	for ( ;itr!=end; ++itr)
+	{
+		std::string const& name(boost::get<0>(*itr));
 		env->CallBooleanMethod(ret, METHOD_HASHSET_ADD, env->NewStringUTF(name.c_str()));
 	}
 
@@ -176,12 +179,10 @@ JNIEXPORT jobject JNICALL Java_mapnik_FeatureSet_getProperty
 	}
 
 	refjavastring name(env,namej);
-	std::map<std::string,mapnik::value>::iterator iter=(*fp)->props().find(name.stringz);
-	if (iter==(*fp)->end()) return 0;
 
 	// Convert the value
-	mapnik::value_base const& value=iter->second.base();
-	return boost::apply_visitor(value_to_java(env), value);
+	mapnik::value_type const& value= (*fp)->get(name.stringz);
+	return boost::apply_visitor(value_to_java(env), value.base());
 	TRAILER(0);
 }
 

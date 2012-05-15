@@ -5,6 +5,8 @@
 #include <mapnik/datasource_cache.hpp>
 #include <mapnik/attribute_collector.hpp>
 #include <mapnik/save_map.hpp>
+#include <mapnik/feature.hpp>
+#include <mapnik/graphics.hpp>
 #include <mapnik/image_util.hpp>
 #include <mapnik/agg_renderer.hpp>
 #include <mapnik/font_engine_freetype.hpp>
