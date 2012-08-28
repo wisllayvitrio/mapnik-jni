@@ -23,7 +23,11 @@ JNIEXPORT jint JNICALL Java_mapnik_Geometry_getNumPoints
 {
 	PREAMBLE;
 	mapnik::geometry_type* g=LOAD_GEOMETRY_POINTER(gobj);
+	#if MAPNIK_VERSION >= 200100
+	return g->size();
+	#else
 	return g->num_points();
+	#endif
 	TRAILER(0);
 }
 
@@ -38,7 +42,11 @@ JNIEXPORT jint JNICALL Java_mapnik_Geometry_getVertex
 	PREAMBLE;
 	mapnik::geometry_type* g=LOAD_GEOMETRY_POINTER(gobj);
 	double x=0, y=0;
+	#if MAPNIK_VERSION >= 200100
+	unsigned ret=g->vertex(pos, &x, &y);
+	#else
 	unsigned ret=g->get_vertex(pos, &x, &y);
+	#endif
 
 	if (coord) {
 		env->SetDoubleField(coord, FIELD_COORD_X, x);

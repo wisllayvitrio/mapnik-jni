@@ -1,4 +1,5 @@
 #include <jni.h>
+#include <mapnik/version.hpp>
 #include <mapnik/map.hpp>
 #include <mapnik/load_map.hpp>
 #include <mapnik/layer.hpp>
