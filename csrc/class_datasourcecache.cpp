@@ -48,7 +48,7 @@ JNIEXPORT void JNICALL Java_mapnik_DatasourceCache_registerDatasources
 {
 	PREAMBLE;
 	refjavastring path(env, sj);
-	mapnik::datasource_cache::register_datasources(path.stringz);
+	mapnik::datasource_cache::instance()->register_datasources(path.stringz);
 	TRAILER_VOID;
 }
 
