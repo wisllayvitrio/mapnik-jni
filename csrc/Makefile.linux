@@ -1,5 +1,6 @@
 include common.mk
 
+MAPNIK_LIBS = $(shell mapnik-config --libs --ldflags --dep-libs)
 
 libmapnik-jni.so: $(SOURCE_DEPENDS)
 	$(CXX) -o libmapnik-jni.so \
