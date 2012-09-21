@@ -8,7 +8,7 @@ JNIEXPORT jobjectArray JNICALL Java_mapnik_DatasourceCache_pluginNames
   (JNIEnv *env, jclass c)
 {
 	PREAMBLE;
-	std::vector<std::string> names(mapnik::datasource_cache::plugin_names());
+	std::vector<std::string> names(mapnik::datasource_cache::instance().plugin_names());
 	jobjectArray ary=env->NewObjectArray(
 		names.size(),
 		CLASS_STRING,
@@ -33,7 +33,7 @@ JNIEXPORT jstring JNICALL Java_mapnik_DatasourceCache_pluginDirectories
   (JNIEnv *env, jclass c)
 {
 	PREAMBLE;
-	std::string s(mapnik::datasource_cache::plugin_directories());
+	std::string s(mapnik::datasource_cache::instance().plugin_directories());
 	return env->NewStringUTF(s.c_str());
 	TRAILER(0);
 }
@@ -48,7 +48,7 @@ JNIEXPORT void JNICALL Java_mapnik_DatasourceCache_registerDatasources
 {
 	PREAMBLE;
 	refjavastring path(env, sj);
-	mapnik::datasource_cache::instance()->register_datasources(path.stringz);
+	mapnik::datasource_cache::instance().register_datasources(path.stringz);
 	TRAILER_VOID;
 }
 
@@ -64,7 +64,7 @@ JNIEXPORT jobject JNICALL Java_mapnik_DatasourceCache_create
 	mapnik::parameters params;
 	translate_to_mapnik_parameters(env, paramsmap, params);
 
-	mapnik::datasource_ptr ds=mapnik::datasource_cache::create(params, (bool)bind);
+	mapnik::datasource_ptr ds=mapnik::datasource_cache::instance().create(params, (bool)bind);
 	if (!ds) return 0;
 
 	mapnik::datasource_ptr *dspinned=new mapnik::datasource_ptr(ds);
@@ -73,4 +73,3 @@ JNIEXPORT jobject JNICALL Java_mapnik_DatasourceCache_create
 	return ret;
 	TRAILER(0);
 }
-
