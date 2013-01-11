@@ -70,9 +70,10 @@ public class TestLayer {
 		
 		Parameters params=new Parameters();
 		params.put("type", "postgis");
+		params.put("dbname", "mapnik-tmp-postgis-test-db");
 		params.put("table", "test");
 		
-		Datasource ds=DatasourceCache.create(params, false);
+		Datasource ds=DatasourceCache.create(params);
 		layer.setDatasource(ds);
 		assertNotNull(layer.getDatasource());
 		

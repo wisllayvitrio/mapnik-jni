@@ -23,7 +23,7 @@ public class TestDatasource {
 		params.put("type", "shape");
 		params.put("file", SHAPEFILE_NAME);
 		
-		Datasource ds=DatasourceCache.create(params, true);
+		Datasource ds=DatasourceCache.create(params);
 		System.out.println("Bound datasource");
 		
 		LayerDescriptor ld=ds.getDescriptor();
@@ -37,7 +37,7 @@ public class TestDatasource {
 		params.put("type", "shape");
 		params.put("file", SHAPEFILE_NAME);
 		
-		Datasource ds=DatasourceCache.create(params, true);
+		Datasource ds=DatasourceCache.create(params);
 		LayerDescriptor ld=ds.getDescriptor();
 		
 		Box2d bbox=new Box2d(-180, -85, 180, 85);

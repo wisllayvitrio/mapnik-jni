@@ -55,20 +55,6 @@ JNIEXPORT jint JNICALL Java_mapnik_Datasource_getType
 
 /*
  * Class:     mapnik_Datasource
- * Method:    bind
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_mapnik_Datasource_bind
-  (JNIEnv *env, jobject dsobj)
-{
-	PREAMBLE;
-	mapnik::datasource_ptr* dsp=LOAD_DATASOURCE_POINTER(dsobj);
-	(*dsp)->bind();
-	TRAILER_VOID;
-}
-
-/*
- * Class:     mapnik_Datasource
  * Method:    getEnvelope
  * Signature: ()Lmapnik/Box2d;
  */

@@ -8,7 +8,11 @@ JNIEXPORT jobjectArray JNICALL Java_mapnik_DatasourceCache_pluginNames
   (JNIEnv *env, jclass c)
 {
 	PREAMBLE;
-	std::vector<std::string> names(mapnik::datasource_cache::plugin_names());
+#if MAPNIK_VERSION >= 200200
+	std::vector<std::string> names(mapnik::datasource_cache::instance().plugin_names());
+#else
+	std::vector<std::string> names(mapnik::datasource_cache::instance()->plugin_names());
+#endif
 	jobjectArray ary=env->NewObjectArray(
 		names.size(),
 		CLASS_STRING,
@@ -33,7 +37,11 @@ JNIEXPORT jstring JNICALL Java_mapnik_DatasourceCache_pluginDirectories
   (JNIEnv *env, jclass c)
 {
 	PREAMBLE;
-	std::string s(mapnik::datasource_cache::plugin_directories());
+#if MAPNIK_VERSION >= 200200
+	std::string s(mapnik::datasource_cache::instance().plugin_directories());
+#else
+	std::string s(mapnik::datasource_cache::instance()->plugin_directories());
+#endif
 	return env->NewStringUTF(s.c_str());
 	TRAILER(0);
 }
@@ -48,7 +56,11 @@ JNIEXPORT void JNICALL Java_mapnik_DatasourceCache_registerDatasources
 {
 	PREAMBLE;
 	refjavastring path(env, sj);
+#if MAPNIK_VERSION >= 200200
+	mapnik::datasource_cache::instance().register_datasources(path.stringz);
+#else
 	mapnik::datasource_cache::instance()->register_datasources(path.stringz);
+#endif
 	TRAILER_VOID;
 }
 
@@ -58,13 +70,17 @@ JNIEXPORT void JNICALL Java_mapnik_DatasourceCache_registerDatasources
  * Signature: (Lmapnik/Parameters;Z)Lmapnik/Datasource;
  */
 JNIEXPORT jobject JNICALL Java_mapnik_DatasourceCache_create
-	(JNIEnv *env, jclass c, jobject paramsmap, jboolean bind)
+	(JNIEnv *env, jclass c, jobject paramsmap)
 {
 	PREAMBLE;
 	mapnik::parameters params;
 	translate_to_mapnik_parameters(env, paramsmap, params);
 
-	mapnik::datasource_ptr ds=mapnik::datasource_cache::create(params, (bool)bind);
+#if MAPNIK_VERSION >= 200200
+	mapnik::datasource_ptr ds=mapnik::datasource_cache::instance().create(params);
+#else
+	mapnik::datasource_ptr ds=mapnik::datasource_cache::instance()->create(params);
+#endif
 	if (!ds) return 0;
 
 	mapnik::datasource_ptr *dspinned=new mapnik::datasource_ptr(ds);

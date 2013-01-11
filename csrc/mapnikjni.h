@@ -735,14 +735,6 @@ JNIEXPORT jint JNICALL Java_mapnik_Datasource_getType
 
 /*
  * Class:     mapnik_Datasource
- * Method:    bind
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_mapnik_Datasource_bind
-  (JNIEnv *, jobject);
-
-/*
- * Class:     mapnik_Datasource
  * Method:    getEnvelope
  * Signature: ()Lmapnik/Box2d;
  */
@@ -811,10 +803,10 @@ JNIEXPORT void JNICALL Java_mapnik_DatasourceCache_registerDatasources
 /*
  * Class:     mapnik_DatasourceCache
  * Method:    create
- * Signature: (Lmapnik/Parameters;Z)Lmapnik/Datasource;
+ * Signature: (Lmapnik/Parameters;)Lmapnik/Datasource;
  */
 JNIEXPORT jobject JNICALL Java_mapnik_DatasourceCache_create
-  (JNIEnv *, jclass, jobject, jboolean);
+  (JNIEnv *, jclass, jobject);
 
 #ifdef __cplusplus
 }

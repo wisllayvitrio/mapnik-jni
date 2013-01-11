@@ -136,13 +136,23 @@ JNIEXPORT jobject JNICALL Java_mapnik_FeatureSet_getPropertyNames
 	TRAILER(0);
 }
 
+#if MAPNIK_VERSION >= 200200
+	typedef mapnik::value_integer value_integer;
+#else
+	typedef int value_integer;
+#endif
+
 class value_to_java: public boost::static_visitor<jobject> {
 	JNIEnv* env;
 public:
 	value_to_java(JNIEnv* aenv): env(aenv) {
 	}
 
-	jobject operator()(int value) const {
+	jobject operator()(value_integer value) const {
+		return env->CallStaticObjectMethod(CLASS_INTEGER, METHOD_INTEGER_VALUEOF, value);
+	}
+
+	jobject operator()(bool value) const {
 		return env->CallStaticObjectMethod(CLASS_INTEGER, METHOD_INTEGER_VALUEOF, value);
 	}
 
