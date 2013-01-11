@@ -75,7 +75,6 @@ JNIEXPORT jobject JNICALL Java_mapnik_DatasourceCache_create
 	PREAMBLE;
 	mapnik::parameters params;
 	translate_to_mapnik_parameters(env, paramsmap, params);
-
 #if MAPNIK_VERSION >= 200200
 	mapnik::datasource_ptr ds=mapnik::datasource_cache::instance().create(params);
 #else
@@ -89,4 +88,3 @@ JNIEXPORT jobject JNICALL Java_mapnik_DatasourceCache_create
 	return ret;
 	TRAILER(0);
 }
-
