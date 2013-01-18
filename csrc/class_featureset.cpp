@@ -136,6 +136,7 @@ JNIEXPORT jobject JNICALL Java_mapnik_FeatureSet_getPropertyNames
 	TRAILER(0);
 }
 
+// http://en.wikipedia.org/wiki/Java_Native_Interface#Mapping_types
 #if MAPNIK_VERSION >= 200200
 	typedef mapnik::value_integer value_integer;
 #else
@@ -148,8 +149,13 @@ public:
 	value_to_java(JNIEnv* aenv): env(aenv) {
 	}
 
-	jobject operator()(value_integer value) const {
+
+jobject operator()(value_integer value) const {
+#ifdef BIGINT
+		return env->CallStaticObjectMethod(CLASS_LONG, METHOD_LONG_VALUEOF, value);
+#else
 		return env->CallStaticObjectMethod(CLASS_INTEGER, METHOD_INTEGER_VALUEOF, value);
+#endif
 	}
 
 	jobject operator()(bool value) const {

@@ -21,13 +21,17 @@ public:
 	}
 
 	void operator()(value_integer value) const {
+#ifdef BIGINT
+		env->CallVoidMethod(paramobject, METHOD_PARAMETERS_SET_LONG, key, (jlong)value);
+#else
 		env->CallVoidMethod(paramobject, METHOD_PARAMETERS_SET_INT, key, (jint)value);
+#endif
 	}
 
-/*	void operator()(bool value) const {
-		env->CallVoidMethod(paramobject, METHOD_PARAMETERS_SET_BOOLEAN, key, (jbool)value);
+	void operator()(bool value) const {
+		env->CallVoidMethod(paramobject, METHOD_PARAMETERS_SET_BOOLEAN, key, (jboolean)value);
 	}
-*/
+
 	void operator()(double value) const {
 		env->CallVoidMethod(paramobject, METHOD_PARAMETERS_SET_DOUBLE, key, (jdouble)value);
 	}
