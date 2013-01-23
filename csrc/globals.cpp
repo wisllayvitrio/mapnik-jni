@@ -17,6 +17,7 @@ static jclass
 	CLASS_STRING,
 	CLASS_DOUBLE,
 	CLASS_INTEGER,
+	CLASS_BOOLEAN,
 	CLASS_LONG,
 	CLASS_HASHSET,
 	CLASS_PARAMETERS,
@@ -36,6 +37,7 @@ static jmethodID
 	METHOD_PARAMETERS_COPY_TO_NATIVE,
 	METHOD_DOUBLE_VALUEOF,
 	METHOD_INTEGER_VALUEOF,
+	METHOD_BOOLEAN_VALUEOF,
 	METHOD_LONG_VALUEOF,
 	CTOR_HASHSET,
 	METHOD_HASHSET_ADD,
@@ -179,8 +181,11 @@ static bool init_ids(JNIEnv* env) {
 	init_class(env, "java/lang/Integer", CLASS_INTEGER);
 	METHOD_INTEGER_VALUEOF=lookup_static_method(env, CLASS_INTEGER, "valueOf", "(I)Ljava/lang/Integer;");
 
+	init_class(env, "java/lang/Boolean", CLASS_BOOLEAN);
+	METHOD_BOOLEAN_VALUEOF=lookup_static_method(env, CLASS_BOOLEAN, "valueOf", "(Z)Ljava/lang/Boolean;");
+
 	init_class(env, "java/lang/Long", CLASS_LONG);
-	METHOD_LONG_VALUEOF=lookup_static_method(env, CLASS_LONG, "valueOf", "(I)Ljava/lang/Long;");
+	METHOD_LONG_VALUEOF=lookup_static_method(env, CLASS_LONG, "valueOf", "(J)Ljava/lang/Long;");
 
 	// Double
 	init_class(env, "java/lang/Double", CLASS_DOUBLE);
@@ -190,9 +195,9 @@ static bool init_ids(JNIEnv* env) {
 	init_class(env, "mapnik/Parameters", CLASS_PARAMETERS);
 	CTOR_PARAMETERS=lookup_method(env, CLASS_PARAMETERS, "<init>", "()V");
 	METHOD_PARAMETERS_SET_STRING=lookup_method(env, CLASS_PARAMETERS, "setString", "(Ljava/lang/String;Ljava/lang/String;)V");
-	METHOD_PARAMETERS_SET_BOOLEAN=lookup_method(env, CLASS_PARAMETERS, "setBool", "(Ljava/lang/String;I)V");
+	METHOD_PARAMETERS_SET_BOOLEAN=lookup_method(env, CLASS_PARAMETERS, "setBool", "(Ljava/lang/String;Z)V");
 	METHOD_PARAMETERS_SET_INT=lookup_method(env, CLASS_PARAMETERS, "setInt", "(Ljava/lang/String;I)V");
-	METHOD_PARAMETERS_SET_LONG=lookup_method(env, CLASS_PARAMETERS, "setLong", "(Ljava/lang/String;I)V");
+	METHOD_PARAMETERS_SET_LONG=lookup_method(env, CLASS_PARAMETERS, "setLong", "(Ljava/lang/String;J)V");
 	METHOD_PARAMETERS_SET_DOUBLE=lookup_method(env, CLASS_PARAMETERS, "setDouble", "(Ljava/lang/String;D)V");
 	METHOD_PARAMETERS_COPY_TO_NATIVE=lookup_method(env, CLASS_PARAMETERS, "copyToNative", "(J)V");
 

@@ -31,6 +31,14 @@ public class Parameters extends HashMap<String, Object> {
 	private void setString(String key, String value) {
 		put(key, value);
 	}
+
+	private void setBool(String key, boolean value) {
+		put(key, Boolean.valueOf(value));
+	}
+
+	private void setLong(String key, long value) {
+		put(key, Long.valueOf(value));
+	}
 	
 	private void setInt(String key, int value) {
 		put(key, Integer.valueOf(value));

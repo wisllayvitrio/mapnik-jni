@@ -159,7 +159,7 @@ jobject operator()(value_integer value) const {
 	}
 
 	jobject operator()(bool value) const {
-		return env->CallStaticObjectMethod(CLASS_INTEGER, METHOD_INTEGER_VALUEOF, value);
+		return env->CallStaticObjectMethod(CLASS_BOOLEAN, METHOD_BOOLEAN_VALUEOF, value);
 	}
 
 	jobject operator()(double value) const {
