@@ -27,7 +27,7 @@ JNIEXPORT jboolean JNICALL Java_mapnik_FreetypeEngine_registerFonts
 	if (!dirj) return false;
 	refjavastring dir(env, dirj);
 
-	return mapnik::freetype_engine::register_fonts(dir.stringz);
+	return mapnik::freetype_engine::register_fonts(dir.stringz,(bool)recurse);
 
 	TRAILER(false);
 }
