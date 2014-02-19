@@ -1,13 +1,18 @@
 <project name="mapnik_jni" default="all">
+	<property name="json.jar" location="lib/org.json-chargebee-1.0.jar"/>
 	<property name="junit.jar" location="lib/junit-4.8.2.jar"/>
 	<property name="javadoc.dir" location="pages/javadocs"/>
 	
 	<target name="compile">
 		<mkdir dir="build/classes"/>
 		<mkdir dir="csrc"/>
-		<javac srcdir="src" destdir="build/classes" debug="on" source="1.5" target="1.5" includeantruntime="false"/>
+		<javac srcdir="src" destdir="build/classes" debug="on" source="1.7" target="1.7" includeantruntime="false">
+			<classpath>
+				<pathelement location="${json.jar}"/>
+			</classpath>
+		</javac>
 		<mkdir dir="build/classes-tools"/>
-		<javac srcdir="tools" destdir="build/classes-tools" debug="on" source="1.5" target="1.5" includeantruntime="false">
+		<javac srcdir="tools" destdir="build/classes-tools" debug="on" source="1.7" target="1.7" includeantruntime="false">
 			<classpath>
 				<pathelement location="build/classes"/>
 			</classpath>
@@ -15,7 +20,11 @@
 	</target>
 	
 	<target name="headers" depends="compile">
-		<javah class="mapnik.Parameters,mapnik.Mapnik,mapnik.MapDefinition,mapnik.Layer,mapnik.FeatureTypeStyle,mapnik.Datasource,mapnik.DatasourceCache,mapnik.Projection,mapnik.Query,mapnik.FeatureSet,mapnik.Geometry,mapnik.Image,mapnik.Renderer,mapnik.FreetypeEngine" outputfile="csrc/mapnikjni.h" classpath="build/classes"/>
+		<javah class="mapnik.Parameters,mapnik.Mapnik,mapnik.MapDefinition,mapnik.Layer,mapnik.FeatureTypeStyle,mapnik.Datasource,mapnik.DatasourceCache,mapnik.Projection,mapnik.Query,mapnik.FeatureSet,mapnik.Geometry,mapnik.Image,mapnik.Renderer,mapnik.FreetypeEngine,mapnik.Grid" outputfile="csrc/mapnikjni.h" classpath="build/classes">
+			<classpath>
+				<pathelement location="${json.jar}"/>
+			</classpath>
+		</javah>
 	</target>
 	
 	<target name="jar" depends="compile">
@@ -26,8 +35,9 @@
 	<target name="test" depends="jar,native">
 		<mkdir dir="build/classes-test"/>
 		<mkdir dir="build/testresults"/>
-		<javac srcdir="test" destdir="build/classes-test" debug="on" source="1.5" target="1.5" includeantruntime="false">
+		<javac srcdir="test" destdir="build/classes-test" debug="on" source="1.7" target="1.7" includeantruntime="false">
 			<classpath>
+				<pathelement location="${json.jar}"/>
 				<pathelement location="${junit.jar}"/>
 				<pathelement location="build/dist/mapnik-jni.jar"/>
 			</classpath>
@@ -35,6 +45,7 @@
 	
 		<junit fork="true" failureproperty="tests.failed" showoutput="false" printsummary="true">
 			<classpath>
+				<pathelement location="${json.jar}"/>
 				<pathelement location="${junit.jar}"/>
 				<pathelement location="build/dist/mapnik-jni.jar"/>
 				<pathelement location="build/classes-test"/>
@@ -50,7 +61,7 @@
 			</batchtest>
 		</junit>
 		
-		<fail if="tests.failed" message="One or more tests failed"/>
+		<fail if="tests.failed" message="One or more tests failed. View directory build/testresults for more information."/>
 	</target>
 	
 	<target name="javadoc">
@@ -61,7 +72,7 @@
 			access="public"
 			encoding="UTF-8"
 			windowtitle="mapnik-jni API documentation"
-			source="1.5"
+			source="1.7"
 		/>
 	</target>
 	

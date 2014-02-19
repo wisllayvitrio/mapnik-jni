@@ -63,22 +63,22 @@ public class TestLayer {
 		assertEquals(0, map.getLayerCount());
 	}
 	
-	@Test
-	public void testDatasource() {
-		Layer layer=new Layer("test");
-		assertNull(layer.getDatasource());
-		
-		Parameters params=new Parameters();
-		params.put("type", "postgis");
-		params.put("dbname", "mapnik-tmp-postgis-test-db");
-		params.put("table", "test");
-		
-		Datasource ds=DatasourceCache.create(params);
-		layer.setDatasource(ds);
-		assertNotNull(layer.getDatasource());
-		
-		params=ds.getParameters();
-		assertEquals("postgis", params.get("type"));
-		assertEquals("test", params.get("table"));
-	}
+//	@Test
+//	public void testDatasource() {
+//		Layer layer=new Layer("test");
+//		assertNull(layer.getDatasource());
+//		
+//		Parameters params=new Parameters();
+//		params.put("type", "postgis");
+//		params.put("dbname", "mapnik-tmp-postgis-test-db");
+//		params.put("table", "test");
+//		
+//		Datasource ds=DatasourceCache.create(params);
+//		layer.setDatasource(ds);
+//		assertNotNull(layer.getDatasource());
+//		
+//		params=ds.getParameters();
+//		assertEquals("postgis", params.get("type"));
+//		assertEquals("test", params.get("table"));
+//	}
 }

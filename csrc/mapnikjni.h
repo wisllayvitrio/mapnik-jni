@@ -7,14 +7,20 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#undef mapnik_Parameters_serialVersionUID
+#define mapnik_Parameters_serialVersionUID 362498820763181265LL
 #undef mapnik_Parameters_DEFAULT_INITIAL_CAPACITY
 #define mapnik_Parameters_DEFAULT_INITIAL_CAPACITY 16L
 #undef mapnik_Parameters_MAXIMUM_CAPACITY
 #define mapnik_Parameters_MAXIMUM_CAPACITY 1073741824L
 #undef mapnik_Parameters_DEFAULT_LOAD_FACTOR
 #define mapnik_Parameters_DEFAULT_LOAD_FACTOR 0.75f
-#undef mapnik_Parameters_serialVersionUID
-#define mapnik_Parameters_serialVersionUID 362498820763181265LL
+#undef mapnik_Parameters_TREEIFY_THRESHOLD
+#define mapnik_Parameters_TREEIFY_THRESHOLD 8L
+#undef mapnik_Parameters_UNTREEIFY_THRESHOLD
+#define mapnik_Parameters_UNTREEIFY_THRESHOLD 6L
+#undef mapnik_Parameters_MIN_TREEIFY_CAPACITY
+#define mapnik_Parameters_MIN_TREEIFY_CAPACITY 64L
 /*
  * Class:     mapnik_Parameters
  * Method:    setNativeInt
@@ -50,13 +56,6 @@ JNIEXPORT void JNICALL Java_mapnik_Parameters_setNativeDouble
 #ifdef __cplusplus
 extern "C" {
 #endif
-/* Inaccessible static: initialized */
-/* Inaccessible static: registered */
-/* Inaccessible static: loadedLibrary */
-/* Inaccessible static: librarySearchNames */
-/* Inaccessible static: librarySearchPath */
-/* Inaccessible static: initializationFailure */
-/* Inaccessible static: nativeAllocCounts */
 /*
  * Class:     mapnik_Mapnik
  * Method:    nativeInit
@@ -1110,6 +1109,14 @@ extern "C" {
 JNIEXPORT void JNICALL Java_mapnik_Renderer_renderAgg
   (JNIEnv *, jclass, jobject, jobject, jdouble, jint, jint);
 
+/*
+ * Class:     mapnik_Renderer
+ * Method:    renderGrid
+ * Signature: (Lmapnik/MapDefinition;Lmapnik/Grid;DII)V
+ */
+JNIEXPORT void JNICALL Java_mapnik_Renderer_renderGrid
+  (JNIEnv *, jclass, jobject, jobject, jdouble, jint, jint);
+
 #ifdef __cplusplus
 }
 #endif
@@ -1144,6 +1151,65 @@ JNIEXPORT jboolean JNICALL Java_mapnik_FreetypeEngine_registerFonts
  */
 JNIEXPORT jboolean JNICALL Java_mapnik_FreetypeEngine_isFontFile
   (JNIEnv *, jclass, jstring);
+
+#ifdef __cplusplus
+}
+#endif
+#endif
+/* Header for class mapnik_Grid */
+
+#ifndef _Included_mapnik_Grid
+#define _Included_mapnik_Grid
+#ifdef __cplusplus
+extern "C" {
+#endif
+/*
+ * Class:     mapnik_Grid
+ * Method:    alloc
+ * Signature: (IILjava/lang/String;Ljava/util/ArrayList;I)J
+ */
+JNIEXPORT jlong JNICALL Java_mapnik_Grid_alloc__IILjava_lang_String_2Ljava_util_ArrayList_2I
+  (JNIEnv *, jclass, jint, jint, jstring, jobject, jint);
+
+/*
+ * Class:     mapnik_Grid
+ * Method:    alloc
+ * Signature: (Lmapnik/Grid;)J
+ */
+JNIEXPORT jlong JNICALL Java_mapnik_Grid_alloc__Lmapnik_Grid_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     mapnik_Grid
+ * Method:    dealloc
+ * Signature: (J)V
+ */
+JNIEXPORT void JNICALL Java_mapnik_Grid_dealloc
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     mapnik_Grid
+ * Method:    getWidth
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_mapnik_Grid_getWidth
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     mapnik_Grid
+ * Method:    getHeight
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_mapnik_Grid_getHeight
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     mapnik_Grid
+ * Method:    saveToMemory
+ * Signature: (Ljava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_mapnik_Grid_saveToMemory
+  (JNIEnv *, jobject, jstring);
 
 #ifdef __cplusplus
 }

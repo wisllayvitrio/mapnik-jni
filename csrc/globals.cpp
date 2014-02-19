@@ -12,7 +12,8 @@ static jclass
 	CLASS_QUERY,
 	CLASS_FEATURESET,
 	CLASS_GEOMETRY,
-	CLASS_IMAGE;
+	CLASS_IMAGE,
+	CLASS_GRID;
 static jclass
 	CLASS_STRING,
 	CLASS_DOUBLE,
@@ -114,6 +115,7 @@ inline static long ASSERT_LONG_POINTER(long ptr) {
 #define LOAD_FEATURE_POINTER(object) (static_cast<mapnik::feature_ptr*>(TO_POINTER(env->GetLongField(object, FIELD_FEATURESET_FEATURE_PTR))))
 #define LOAD_GEOMETRY_POINTER(object) (static_cast<mapnik::geometry_type*>(LOAD_OBJECT_POINTER(object)))
 #define LOAD_IMAGE_POINTER(object) (static_cast<mapnik::image_32*>(LOAD_OBJECT_POINTER(object)))
+#define LOAD_GRID_POINTER(object) (static_cast<mapnik::grid*>(LOAD_OBJECT_POINTER(object)))
 
 static void init_class(JNIEnv* env, const char* name, jclass& classref) {
 	classref=(jclass)env->NewGlobalRef(env->FindClass(name));
@@ -166,6 +168,7 @@ static bool init_ids(JNIEnv* env) {
 	init_class(env, "mapnik/FeatureSet", CLASS_FEATURESET);
 	init_class(env, "mapnik/Geometry", CLASS_GEOMETRY);
 	init_class(env, "mapnik/Image", CLASS_IMAGE);
+	init_class(env, "mapnik/Grid", CLASS_GRID);
 
 	// Ptr
 	CTOR_NATIVEOBJECT=lookup_method(env, CLASS_NATIVEOBJECT, "<init>", "()V");

@@ -22,4 +22,7 @@ SOURCE_DEPENDS = \
 	class_geometry.cpp \
 	class_image.cpp \
 	class_renderer.cpp \
-	class_freetypeengine.cpp
+	class_freetypeengine.cpp \
+	class_grid.cpp \
+	JsonObject.cpp \
+	JsonObject.hpp

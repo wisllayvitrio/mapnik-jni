@@ -28,6 +28,8 @@
 #include "class_image.cpp"
 #include "class_renderer.cpp"
 #include "class_freetypeengine.cpp"
+#include "class_grid.cpp"
+#include "JsonObject.cpp"
 
 /// -- Mapnik class
 /*

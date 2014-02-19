@@ -10,6 +10,7 @@ libmapnik-jni.so: $(SOURCE_DEPENDS)
 		$(JAVA_CFLAGS) \
 		mapnikjni.cpp \
 		$(LDFLAGS) \
+		-lpython2.7 -lboost_python -I/usr/include/python2.7 \
 		$(MAPNIK_LIBS)
 	
 clean:

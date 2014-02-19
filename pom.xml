@@ -1,0 +1,206 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>harpia</groupId>
+		<artifactId>harpia</artifactId>
+		<version>0.2.1-SNAPSHOT</version>
+		<relativePath>../harpia</relativePath>
+	</parent>
+
+	<artifactId>mapnik-jni</artifactId>
+	<name>Mapnik Java Binding</name>
+	<description>
+		Define o mapeador em java para a biblioteca mapnik
+	</description>
+	<version>3fe88fae16</version>
+	<packaging>jar</packaging>
+
+	<properties>
+		<!-- Propriedades gerais -->
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<target.assembly>target/assembly</target.assembly>
+		
+		<makearg>test</makearg>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>make-arg</id>
+			<activation>
+				<property>
+					<name>maven.test.skip</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<properties>
+				<makearg>all</makearg>
+			</properties>
+		</profile>
+	</profiles>
+	
+	<build>
+		<plugins>
+
+			<!-- Realiza a geracao dos pacotes do projeto -->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2-beta-2</version>
+
+				<executions>
+
+					<!-- Gera um pacote zip contendo biblioteca nativa -->
+					<execution>
+						<id>create-package-native-lib</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>src/main/assembly/assemblylib.xml</descriptor>
+							</descriptors>
+							<outputDirectory>${target.assembly}</outputDirectory>
+						</configuration>
+					</execution>
+
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<!-- make all in the Maven compile phase -->
+						<id>buildlib</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>make</executable>
+							<arguments>
+								<argument>${makearg}</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<!-- Make clean in the Maven clean phase -->
+						<id>cleanlib</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>make</executable>
+							<arguments>
+								<argument>clean</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath"/>
+								<if>
+									<available file="${basedir}/src/mapnik" />
+									<then>
+										<move todir="${basedir}/src/main/java/mapnik"
+											preservelastmodified="false">
+											<fileset dir="${basedir}/src/mapnik" />
+										</move>
+									</then>
+								</if>
+
+								<copy file="${basedir}/build/dist/mapnik-jni.jar"
+									tofile="${basedir}/target/mapnik-jni-${project.version}.jar"
+									overwrite="true" />
+								<copy file="${basedir}/build/dist/libmapnik-jni.so" tofile="${basedir}/target/libmapnik-jni.so"
+									overwrite="true" />
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>ant-contrib</groupId>
+						<artifactId>ant-contrib</artifactId>
+						<version>20020829</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											exec-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.1,)
+										</versionRange>
+										<goals>
+											<goal>exec</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>Nexus Releases</name>
+			<url>http://nexus.lupa.inf.ufg.br:8081/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Nexus Snapshot</name>
+			<url>http://nexus.lupa.inf.ufg.br:8081/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>org.json</artifactId>
+			<version>chargebee-1.0</version>
+		</dependency>
+	</dependencies>
+</project>

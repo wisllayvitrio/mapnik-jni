@@ -61,6 +61,7 @@ public class Mapnik {
 		nativeAllocCounts.put(MapDefinition.class, new AtomicInteger());
 		nativeAllocCounts.put(Projection.class, new AtomicInteger());
 		nativeAllocCounts.put(Query.class, new AtomicInteger());
+		nativeAllocCounts.put(Grid.class, new AtomicInteger());
 	}
 	
 	/**

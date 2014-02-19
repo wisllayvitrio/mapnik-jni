@@ -25,6 +25,7 @@ public class TestLoadLibrary {
 	
 	@Test
 	public void testPluginAndFontPaths() {
+		Mapnik.initialize();
 		System.err.println("Installed fonts dir=" + Mapnik.getInstalledFontsDir());
 		System.err.println("Installed plugin dir=" + Mapnik.getInstalledInputPluginsDir());
 		
